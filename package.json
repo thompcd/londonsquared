@@ -1,12 +1,13 @@
 {
-  "name": "@aftertheflood/londonsquared",
-  "version": "0.3.2",
-  "description": "Visualise london borough data in the style of After the Floods London Squared cartograms",
+  "name": "@thompcd/londonsquared",
+  "version": "2.0.0",
+  "description": "Visualise Tulsa neighborhood data in the style of After the Floods London Squared cartograms",
   "keywords": [
     "d3-module",
     "cartogram",
     "london",
-    "visualization"
+    "visualization",
+    "Tulsa"
   ],
   "main": "src/index.js",
   "scripts": {
@@ -15,16 +16,19 @@
     "build": "npx webpack --watch",
     "prepublish": "npx webpack"
   },
-  "author": "tom.g.pearson@gmail.com",
+  "author": "corey.dwayne.thompson@gmail.com",
   "license": "ISC",
   "dependencies": {
     "d3": "^5.7.0"
   },
-  "repository": "https://github.com/aftertheflood/londonsquared",
+  "repository": "https://github.com/thompcd/londonsquared",
   "devDependencies": {
     "browser-sync": "^2.26.10",
     "cheerio": "^1.0.0-rc.2",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

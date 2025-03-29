@@ -9,7 +9,7 @@ A D3  module to support the creation of [London Squared](https://aftertheflood.c
 ## The thinking behind London Squared
 
 ### Future Cities Catapult
-   [Future Cities Catapult](https://futurecities.catapult.org.uk) has many programmes that require data analysis. London Squared came out of a partnership between us to develop product ideas that would help them and their network — anyone working in this field who wanted to create, use, and share data better. Key to this was the ability to compare data across the city’s 32 boroughs (33 if you include The City of London, not officially a borough). Unfortunately at the moment the only way of doing that spatially was to use a geographical map ...
+   [Future Cities Catapult](https://futurecities.catapult.org.uk) has many programmes that require data analysis. London Squared came out of a partnership between us to develop product ideas that would help them and their network — anyone working in this field who wanted to create, use, and share data better. Key to this was the ability to compare data across the city’s 32 boroughs (33 if you include The Downtown, not officially a borough). Unfortunately at the moment the only way of doing that spatially was to use a geographical map ...
     
 ### The Trouble With Data Maps
 
