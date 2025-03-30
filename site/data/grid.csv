@@ -1,8 +1,8 @@
 LSAbbreviation, x, y, irregular, code, name
-snds,1,1,false,74063,Sand Springs
-twnw,1,2,false,74107,Town West
-trky,1,3,false,74132,Tulsa Hills
-jnks,1,4,false,74037,Jenks
+snds,1,0,false,74063,Sand Springs
+twnw,1,1,false,74107,Town West
+trky,1,2,false,74132,Tulsa Hills
+jnks,1,3,false,74037,Jenks
 nrth,2,0,false,74106,North Tulsa
 dwnt,2,1,false,74103,Downtown
 utcs,2,2,false,74152,Utica Square
