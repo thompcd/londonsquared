@@ -1,8 +1,8 @@
 export default [
-	{"LSAbbreviation":"snds","x":"1","y":"0","irregular":false,"code":"74063","name":"Sand Springs"},
-	{"LSAbbreviation":"twnw","x":"1","y":"1","irregular":false,"code":"74107","name":"Town West"},
-	{"LSAbbreviation":"trky","x":"1","y":"2","irregular":false,"code":"74132","name":"Tulsa Hills"},
-	{"LSAbbreviation":"jnks","x":"1","y":"3","irregular":false,"code":"74037","name":"Jenks"},
+	{"LSAbbreviation":"snds","x":"1","y":"1","irregular":false,"code":"74063","name":"Sand Springs"},
+	{"LSAbbreviation":"twnw","x":"1","y":"2","irregular":false,"code":"74107","name":"Town West"},
+	{"LSAbbreviation":"trky","x":"1","y":"3","irregular":false,"code":"74132","name":"Tulsa Hills"},
+	{"LSAbbreviation":"jnks","x":"1","y":"4","irregular":false,"code":"74037","name":"Jenks"},
 	{"LSAbbreviation":"nrth","x":"2","y":"0","irregular":false,"code":"74106","name":"North Tulsa"},
 	{"LSAbbreviation":"dwnt","x":"2","y":"1","irregular":false,"code":"74103","name":"Downtown"},
 	{"LSAbbreviation":"utcs","x":"2","y":"2","irregular":false,"code":"74152","name":"Utica Square"},
