@@ -12,8 +12,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "npx browser-sync start --server './'",
-    "build": "npx webpack --watch",
+    "serve": "http-server",
+    "build": "npx webpack",
     "prepublish": "npx webpack"
   },
   "author": "corey.dwayne.thompson@gmail.com",
