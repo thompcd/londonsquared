@@ -15,5 +15,6 @@ export default [
 	{"LSAbbreviation":"sths","x":"4","y":"4","irregular":false,"code":"74011","name":"Southside"},
 	{"LSAbbreviation":"bxby","x":"4","y":"5","irregular":false,"code":"74008","name":"Bixby"},
 	{"LSAbbreviation":"lynn","x":"5","y":"3","irregular":false,"code":"74012","name":"Lynn Lane"},
-	{"LSAbbreviation":"brkn","x":"5","y":"4","irregular":false,"code":"74014","name":"Broken Arrow"}
+	{"LSAbbreviation":"brkn","x":"5","y":"4","irregular":false,"code":"74014","name":"Broken Arrow"},
+	{"LSAbbreviation":"mwhk","x":"3","y":"0","irregular":false,"code":"741031","name":"Mohawk Park"}
 ];
