@@ -1,13 +1,13 @@
 LSAbbreviation, x, y, irregular, code, name
-snds,2,0,false,74063,Sand Springs
-twnw,2,1,false,74107,Town West
-trky,2,2,false,74132,Tulsa Hills
-jnks,2,3,false,74037,Jenks
+snds,2,1,false,74063,Sand Springs
+twnw,2,2,false,74107,Town West
+trky,2,3,false,74132,Tulsa Hills
+jnks,2,4,true,74037,Jenks
 mwhk,3,0,false,74106,Mohawk Park
 dwnt,3,1,false,74103,Downtown
 utcs,3,2,false,74152,Utica Square
 brks,3,3,false,74105,Brookside
-orbt,3,4,false,74170,Oral Roberts
+orbt,3,4,true,74170,Oral Roberts
 owso,4,0,false,74055,Owasso
 estl,4,1,false,74108,Eastland
 midt,4,2,false,E09000014,Midtown
