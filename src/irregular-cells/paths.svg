@@ -6,6 +6,6 @@
     <path id="74103" d="M-.001.454 0 95C27 77 36 96 35 99H100V.454H-.001Z" fill="none" stroke="#000" stroke-width="0.1"></path>
     <path id="74063" d="M-.001.454 0 100H121C132 83 120 78 100 85V0H-.001Z" fill="none" stroke="#000" stroke-width="0.1"></path>
     <path id="74152" d="M100 0V100H0V30L30 0Z" fill="none" stroke="#000" stroke-width="0.1"></path>
-    <path id="74107" d="M0 0V30 105H100V25L120 3C142-14 131-23 100 0Z" fill="none" stroke="#000" stroke-width="0.1"></path>
+    <path id="74107" d="M0 0V30 105H100V25L121 4C141-12 130-24 105 0Z" fill="none" stroke="#000" stroke-width="0.1"></path>
   </g>
 </svg>
