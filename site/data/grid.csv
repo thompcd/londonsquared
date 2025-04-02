@@ -1,6 +1,6 @@
 LSAbbreviation, x, y, irregular, code, name
-snds,2,1,true,74063,Sand Springs
-twnw,2,2,false,74107,Town West
+snds,2,1,false,74063,Sand Springs
+twnw,2,2,true,74107,Town West
 trky,2,3,false,74132,Tulsa Hills
 jnks,2,4,true,74037,Jenks
 mwhk,3,0,false,74106,Mohawk Park
