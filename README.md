@@ -1,3 +1,9 @@
+## Attribution
+This is a fork of the repo [London Squared](https://www.github.com/aftertheflood/londonsquared) which was created to add support for ploting Tulsa, OK in the abstract cartography style of the original author. Thank you for the original author's work in creating the template. 
+
+## Note On Docs
+Most support resources were provided by the original author and have not yet been reviewed to determine whether they have been broken while adding support for Tulsa. The documents have been referenced and are known to be correct in spirit but there may be technical inaccuracies. Please keep this in mind while implementing if using before documentation has been updated. 
+
 A D3  module to support the creation of [London Squared](https://aftertheflood.com/projects/future-cities-catapult/) cartograms.
 
  * [Getting started](/londonsquared/getting-started)
