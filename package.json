@@ -1,5 +1,5 @@
 {
-  "name": "@thompcd/londonsquared",
+  "name": "tulsasquared",
   "version": "0.1.0",
   "description": "Visualise Tulsa neighborhood data in the style of After the Floods London Squared cartograms",
   "keywords": [
@@ -19,17 +19,22 @@
   "author": "corey.dwayne.thompson@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "d3": "^5.7.0"
+    "d3": "^5.7.0",
+    "tulsasquared": "^0.1.0"
   },
   "repository": "https://github.com/thompcd/londonsquared",
   "devDependencies": {
     "browser-sync": "^2.26.10",
     "cheerio": "^1.0.0-rc.2",
+    "http-server": "^14.1.1",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "http-server": "^14.1.1"
+    "webpack-cli": "^3.3.12"
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
