@@ -1,17 +1,17 @@
 LSAbbreviation, x, y, irregular, code, name
+dwnt,3,1,true,74103,Downtown
+mwhk,3,0,false,74115,Mohawk Park
+owso,4,0,false,74055,Owasso
+brks,3,3,false,74105,Brookside
+lfrt,4,3,false,74153,LaFortune Park
+trky,2,3,false,74132,Tulsa Hills
 snds,2,1,true,74063,Sand Springs
 twnw,2,2,true,74107,Town West
-trky,2,3,false,74132,Tulsa Hills
 jnks,2,4,true,74037,Jenks
-mwhk,3,0,false,74106,Mohawk Park
-dwnt,3,1,true,74103,Downtown
 utcs,3,2,true,74152,Utica Square
-brks,3,3,false,74105,Brookside
 orbt,3,4,true,74170,Oral Roberts
-owso,4,0,false,74055,Owasso
 estl,4,1,false,74108,Eastland
 midt,4,2,false,E09000014,Midtown
-lfrt,4,3,false,74153,LaFortune Park
 sths,4,4,false,74011,Southside
 bxby,4,5,false,74008,Bixby
 lynn,5,3,false,74012,Lynn Lane

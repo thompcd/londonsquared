@@ -27,8 +27,8 @@
   <script src="../dist/index.js"></script>
 </head>
 <body>
-<h1>London population by borough</h1>
-<p class="subtitle">GLA Population Estimate 2015 (thousands)</p>
+<h1>Tulsa population by borough</h1>
+<p class="subtitle">GLA Population Estimate 2025 (thousands)</p>
 <p>This example illustrates how you might use the After the Flood <a href="https://github.com/aftertheflood/londonsquared">London Squared</a> module for D3 to visualise a single variable accross all London boroughs.</p>
 <div class="vizualisation-container"></div>
 </body>
@@ -42,7 +42,7 @@ window.onload = ()=>{
     .attr('width', width)
     .attr('height', height);
 
-  d3.csv('data/london-borough-profiles.csv')
+  d3.csv('data/tulsa-zip-homevalues.csv')
     .then((data)=>{
       console.log(data);
 
@@ -56,7 +56,7 @@ window.onload = ()=>{
       svg.call(LS); // draw the cartogram shapes
       
       const circleScale = d3.scalePow()
-        .domain([0, d3.max(data, d => Number(d['GLA Population Estimate 2015']))])
+        .domain([0, d3.max(data, d => Number(d['medianHomeValue']))])
         .range([0, LS.blockSize()/2])
 
       console.log(circleScale.domain(), circleScale.range());
@@ -66,7 +66,7 @@ window.onload = ()=>{
           parent.append('circle')
             .attr('r', d => {
               console.log(d); 
-              return circleScale(d.data['GLA Population Estimate 2015'])
+              return circleScale(d.data['medianHomeValue'])
             })
             .attr('cx', LS.centroid()[0])
             .attr('cy', LS.centroid()[1])
@@ -85,7 +85,7 @@ window.onload = ()=>{
             .attr('class', 'borough-label')
             .attr('x', 5)
             .attr('y', LS.blockSize()-5)
-            .text(d => `${d.data['GLA Population Estimate 2015']/1000}k`);
+            .text(d => `${d.data['medianHomeValue']/1000}k`);
         })
     })
     .catch(err=>{
