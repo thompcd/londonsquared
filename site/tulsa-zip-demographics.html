@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    p {
+      max-width: 600px;
+    }
+
+    .subtitle {
+      font-style: italic;
+      color: #666;
+    }
+
+    .borough-label {
+      fill: #111;
+    }
+
+    .ls-background {
+      fill: #DDD;
+    }
+
+    .control-panel {
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    label {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+  </style>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="../dist/index.js"></script>
+</head>
+<body>
+  <h1>Tulsa population by borough</h1>
+  <p class="subtitle">GLA Population Estimate 2025 (thousands)</p>
+  <p>This example illustrates how you might use the After the Flood <a href="https://github.com/aftertheflood/londonsquared">London Squared</a> module for D3 to visualise a single variable accross all London boroughs.</p>
+  
+  <div class="control-panel">
+    <label for="column-selector">Select data to display:</label>
+    <select id="column-selector"></select>
+  </div>
+  
+  <div class="vizualisation-container"></div>
+</body>
+<script>
+window.onload = () => {
+  const width = 600;
+  const height = 525;
+
+  // Initial property to plot
+  let plottedProperty = 'medianHomeValue';
+
+  const svg = d3.select('.vizualisation-container')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  // Create a function to update the visualization
+  function updateVisualization(data, property) {
+    // Clear previous visualization
+    svg.selectAll('*').remove();
+    
+    const LS = atf.londonSquared({gridGapProportion: 0.05})
+      .data(data, d => d.Code)
+      .width(width)
+      .height(height);
+
+    svg.call(LS); // draw the cartogram shapes
+    
+    const circleScale = d3.scalePow()
+      .domain([0, d3.max(data, d => Number(d[property]))])
+      .range([0, LS.blockSize()/2]);
+    
+    LS.masked()
+      .call(function(parent) {
+        parent.append('circle')
+          .attr('r', d => circleScale(d.data[property]))
+          .attr('cx', LS.centroid()[0])
+          .attr('cy', LS.centroid()[1])
+          .attr('fill', '#f00');
+      });
+    
+    LS.foreground()
+      .call(function(parent) {
+        parent.append('text')
+          .attr('class', 'borough-label')
+          .attr('x', 5)
+          .attr('y', 15)
+          .text(d => d.LSAbbreviation);
+        
+        parent.append('text')
+          .attr('class', 'borough-label')
+          .attr('x', 5)
+          .attr('y', LS.blockSize()-5)
+          .text(d => {
+            // Format the display based on the value range
+            const val = d.data[property];
+            return val >= 1000 ? `${(val/1000).toFixed(1)}k` : val;
+          });
+      });
+  }
+
+  // Load CSV and set up the dropdown
+  d3.csv('data/tulsa-zip-demographics-2025.csv')
+    .then((data) => {
+      console.log("Data loaded:", data[0]);
+      
+      // Get column names for dropdown (excluding 'Code' which is used for mapping)
+      const columnSelector = document.getElementById('column-selector');
+      const columns = Object.keys(data[0]).filter(col => col !== 'Code');
+      
+      // Populate dropdown with column options
+      columns.forEach(column => {
+        const option = document.createElement('option');
+        option.value = column;
+        option.textContent = column;
+        // Set default selected option
+        if (column === plottedProperty) {
+          option.selected = true;
+        }
+        columnSelector.appendChild(option);
+      });
+      
+      // Initial visualization
+      updateVisualization(data, plottedProperty);
+      
+      // Add event listener to update visualization when dropdown selection changes
+      columnSelector.addEventListener('change', function() {
+        plottedProperty = this.value;
+        updateVisualization(data, plottedProperty);
+      });
+    })
+    .catch(err => {
+      console.log("Error loading data:", err);
+      document.querySelector('.vizualisation-container').innerHTML = 
+        '<p style="color: red">Error loading data. Please check the console for details.</p>';
+    });
+};
+</script>
+</html>
