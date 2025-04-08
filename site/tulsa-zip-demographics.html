@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Inter', sans-serif;
+      color: #333333;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: black;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-top: 0.5rem;
     }
 
     p {
-      max-width: 600px;
+      max-width: 100%;
+      line-height: 1.5;
     }
 
     .subtitle {
@@ -25,6 +40,10 @@
 
     .control-panel {
       margin-bottom: 20px;
+      padding: 1rem;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     select {
@@ -32,20 +51,69 @@
       font-size: 16px;
       border-radius: 4px;
       border: 1px solid #ccc;
+      width: 100%;
+      max-width: 400px;
     }
 
     label {
-      margin-right: 10px;
-      font-weight: bold;
+      margin-bottom: 10px;
+      font-weight: 600;
+      display: block;
+    }
+
+    .vizualisation-container {
+      width: 100%;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .vizualisation-container svg {
+      width: 100%;
+      min-width: 500px;
+      height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+      
+      .control-panel {
+        padding: 0.8rem;
+      }
+      
+      .vizualisation-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      h1 {
+        margin-bottom: 0.8rem;
+      }
+      
+      .control-panel {
+        margin-bottom: 15px;
+      }
+      
+      /* Make sure select is easy to tap on mobile */
+      select {
+        height: 44px;
+      }
     }
   </style>
   <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <script src="../dist/index.js"></script>
 </head>
 <body>
   <h1>Green Country Demographics</h1>
   <p>This example illustrates how you might use Tulsa Software's <a href="https://github.com/thompcd/londonsquared">Tulsa Squared</a> module for D3 to visualise a single variable across the districts of Tulsa.</p>
-  <p>This is an adaptation of After The Flood's original work <a href="https://github.com/aftertheflood/londonsquared">London Squared</a>.</p>
+  <p class="subtitle">This is an adaptation of After The Flood's original work <a href="https://github.com/aftertheflood/londonsquared">London Squared</a>.</p>
   
   <div class="control-panel">
     <label for="column-selector">Select data to display:</label>
@@ -56,26 +124,55 @@
 </body>
 <script>
 window.onload = () => {
-  const width = 600;
-  const height = 525;
-
   // Initial property to plot
   let plottedProperty = 'Population';
+  
+  // Function to set visualization size based on viewport
+  function getVizDimensions() {
+    const container = document.querySelector('.vizualisation-container');
+    const containerWidth = container.clientWidth;
+    
+    // Set a minimum and maximum size and maintain aspect ratio
+    const maxWidth = 900;
+    const minWidth = 500;
+    
+    // Use the container width but not smaller than minWidth
+    // and not larger than maxWidth
+    let width = Math.max(minWidth, Math.min(containerWidth, maxWidth));
+    
+    // On mobile, if container is smaller than minWidth, make it scrollable
+    // but don't resize below minWidth to keep the graphic readable
+    const height = width * 0.875; // Maintain the original 600:525 aspect ratio
+    
+    return { width, height };
+  }
 
+  // Create SVG with initial dimensions
+  const dimensions = getVizDimensions();
   const svg = d3.select('.vizualisation-container')
     .append('svg')
-    .attr('width', width)
-    .attr('height', height);
+    .attr('width', dimensions.width)
+    .attr('height', dimensions.height)
+    .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
 
-  // Create a function to update the visualization
+  // Function to update visualization
   function updateVisualization(data, property) {
+    // Get current dimensions
+    const dimensions = getVizDimensions();
+    
+    // Update SVG dimensions
+    svg.attr('width', dimensions.width)
+       .attr('height', dimensions.height)
+       .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`);
+    
     // Clear previous visualization
     svg.selectAll('*').remove();
     
     const LS = atf.londonSquared({gridGapProportion: 0.05})
       .data(data, d => d.Code)
-      .width(width)
-      .height(height);
+      .width(dimensions.width)
+      .height(dimensions.height);
 
     svg.call(LS); // draw the cartogram shapes
     
@@ -92,18 +189,24 @@ window.onload = () => {
           .attr('fill', '#1A6B96');
       });
     
+    // Adjust text size based on block size for mobile
+    const labelFontSize = Math.max(14, Math.min(16, LS.blockSize() / 4));
+    const valueFontSize = Math.max(12, Math.min(14, LS.blockSize() / 5));
+    
     LS.foreground()
       .call(function(parent) {
         parent.append('text')
           .attr('class', 'borough-label')
           .attr('x', 5)
           .attr('y', 15)
+          .style('font-size', `${labelFontSize}px`)
           .text(d => d.LSAbbreviation);
         
         parent.append('text')
           .attr('class', 'borough-label')
           .attr('x', 5)
-          .attr('y', LS.blockSize()-5)
+          .attr('y', LS.blockSize() - 5)
+          .style('font-size', `${valueFontSize}px`)
           .text(d => {
             // Format the display based on the value range
             const val = d.data[property];
@@ -139,6 +242,11 @@ window.onload = () => {
       // Add event listener to update visualization when dropdown selection changes
       columnSelector.addEventListener('change', function() {
         plottedProperty = this.value;
+        updateVisualization(data, plottedProperty);
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
         updateVisualization(data, plottedProperty);
       });
     })
