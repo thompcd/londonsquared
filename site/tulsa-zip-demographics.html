@@ -84,7 +84,7 @@
       }
       
       .vizualisation-container {
-        overflow-x: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
       }
     }
@@ -169,7 +169,7 @@ window.onload = () => {
     // Clear previous visualization
     svg.selectAll('*').remove();
     
-    const LS = atf.londonSquared({gridGapProportion: 0.05})
+    const LS = atf.londonSquared({gridGapProportion: 0.1})
       .data(data, d => d.Code)
       .width(dimensions.width)
       .height(dimensions.height);
