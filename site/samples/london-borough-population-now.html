@@ -24,8 +24,8 @@
     }
   </style>
   <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://unpkg.com/tulsasquared@0.2.0/dist/index.js"></script>
   <!-- <script src="../dist/index.js"></script> -->
-  <script src="https://unpkg.com/@aftertheflood/londonsquared@0.2.1/dist/index.js"></script>
 </head>
 <body>
 <h1>London population by borough</h1>
@@ -45,10 +45,14 @@ window.onload = ()=>{
 
   d3.csv('data/london-borough-profiles.csv')
     .then((data)=>{
+      console.log(data);
+
       const LS = atf.londonSquared({gridGapProportion:0.05})
         .data(data, d=>d.Code) //the second argument is an accessor for the local authority code associated with the data row. by default this is d=>d.code
         .width(width)
         .height(height);
+
+      console.log(LS)
 
       svg.call(LS); // draw the cartogram shapes
       

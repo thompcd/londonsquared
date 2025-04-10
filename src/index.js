@@ -187,6 +187,6 @@ const londonSquared = (userConfig) => {
   return ls;
 }
 
-londonSquared.version = '0.1.1';
+londonSquared.version = '2.0.0';
 
 export { londonSquared as londonSquared };

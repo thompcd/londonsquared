@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Inter',sans-serif;
+      color: #333333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-family: 'Montserrat', serif;
+      font-weight: 700;
+      color: black;
+    }
+
+    p {
+      max-width: 100%;
+      line-height: 1.5;
+    }
+
+    .subtitle {
+      font-style: italic;
+      color: #666;
+    }
+
+    .borough-label {
+      fill: #111;
+    }
+
+    .ls-background {
+      fill: #DDD;
+    }
+
+    .control-panel {
+      margin-bottom: 20px;
+      padding: 1rem;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    label {
+      margin-bottom: 10px;
+      font-weight: 600;
+      display: block;
+    }
+
+    .vizualisation-container {
+      width: 100%;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .vizualisation-container svg {
+      width: 100%;
+      min-width: 500px;
+      height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+      
+      .control-panel {
+        padding: 0.8rem;
+      }
+      
+      .vizualisation-container {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      h1 {
+        margin-bottom: 0.8rem;
+      }
+      
+      .control-panel {
+        margin-bottom: 15px;
+      }
+      
+      /* Make sure select is easy to tap on mobile */
+      select {
+        height: 44px;
+      }
+    }
+  </style>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/tulsasquared@0.2.0/dist/index.js"></script>
+  <!-- <script src="../dist/index.js"></script> -->
+</head>
+<body>
+  <h1>Green Country Demographics</h1>
+  <p>This example illustrates how you might use <a href="https://github.com/thompcd/londonsquared">Tulsa Software's</a> <a href="https://www.npmjs.com/package/tulsasquared">Tulsa Squared NPM package</a> in combination with <a href="https://d3js.org/">D3.js</a> to visualize data across the districts of Tulsa.</p>
+  <p class="subtitle">This is an adaptation of After The Flood's original work <a href="https://github.com/aftertheflood/londonsquared">London Squared</a>.</p>
+  
+  <div class="control-panel">
+    <label for="column-selector">Select data to display:</label>
+    <select id="column-selector"></select>
+  </div>
+  
+  <div class="vizualisation-container"></div>
+</body>
+<script>
+window.onload = () => {
+  // Initial property to plot
+  let plottedProperty = 'Population';
+  
+  // Function to set visualization size based on viewport
+  function getVizDimensions() {
+    const container = document.querySelector('.vizualisation-container');
+    const containerWidth = container.clientWidth;
+    
+    // Set a minimum and maximum size and maintain aspect ratio
+    const maxWidth = 900;
+    const minWidth = 500;
+    
+    // Use the container width but not smaller than minWidth
+    // and not larger than maxWidth
+    let width = Math.max(minWidth, Math.min(containerWidth, maxWidth));
+    
+    // On mobile, if container is smaller than minWidth, make it scrollable
+    // but don't resize below minWidth to keep the graphic readable
+    const height = width * 0.875; // Maintain the original 600:525 aspect ratio
+    
+    return { width, height };
+  }
+
+  // Create SVG with initial dimensions
+  const dimensions = getVizDimensions();
+  const svg = d3.select('.vizualisation-container')
+    .append('svg')
+    .attr('width', dimensions.width)
+    .attr('height', dimensions.height)
+    .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
+
+  // Function to update visualization
+  function updateVisualization(data, property) {
+    // Get current dimensions
+    const dimensions = getVizDimensions();
+    
+    // Update SVG dimensions
+    svg.attr('width', dimensions.width)
+       .attr('height', dimensions.height)
+       .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`);
+    
+    // Clear previous visualization
+    svg.selectAll('*').remove();
+    
+    const LS = atf.londonSquared({gridGapProportion: 0.1})
+      .data(data, d => d.Code)
+      .width(dimensions.width)
+      .height(dimensions.height);
+
+    svg.call(LS); // draw the cartogram shapes
+    
+    const circleScale = d3.scalePow()
+      .domain([0, d3.max(data, d => Number(d[property]))])
+      .range([0, LS.blockSize()/2]);
+    
+    LS.masked()
+      .call(function(parent) {
+        parent.append('circle')
+          .attr('r', d => circleScale(d.data[property]))
+          .attr('cx', LS.centroid()[0])
+          .attr('cy', LS.centroid()[1])
+          .attr('fill', '#1A6B96');
+      });
+    
+    // Adjust text size based on block size for mobile
+    const labelFontSize = Math.max(14, Math.min(16, LS.blockSize() / 4));
+    const valueFontSize = Math.max(12, Math.min(14, LS.blockSize() / 5));
+    
+    LS.foreground()
+      .call(function(parent) {
+        parent.append('text')
+          .attr('class', 'borough-label')
+          .attr('x', 5)
+          .attr('y', 15)
+          .style('font-size', `${labelFontSize}px`)
+          .text(d => d.LSAbbreviation);
+        
+        parent.append('text')
+          .attr('class', 'borough-label')
+          .attr('x', 5)
+          .attr('y', LS.blockSize() - 5)
+          .style('font-size', `${valueFontSize}px`)
+          .text(d => {
+            // Format the display based on the value range
+            const val = d.data[property];
+            return val >= 1000 ? `${(val/1000).toFixed(1)}k` : val;
+          });
+      });
+  }
+
+  // Load CSV and set up the dropdown
+  d3.csv('data/tulsa-zip-demographics-2025.csv')
+    .then((data) => {
+      console.log("Data loaded:", data[0]);
+      
+      // Get column names for dropdown (excluding 'Code' which is used for mapping)
+      const columnSelector = document.getElementById('column-selector');
+      const columns = Object.keys(data[0]).filter(col => col !== 'Code');
+      
+      // Populate dropdown with column options
+      columns.forEach(column => {
+        const option = document.createElement('option');
+        option.value = column;
+        option.textContent = column;
+        // Set default selected option
+        if (column === plottedProperty) {
+          option.selected = true;
+        }
+        columnSelector.appendChild(option);
+      });
+      
+      // Initial visualization
+      updateVisualization(data, plottedProperty);
+      
+      // Add event listener to update visualization when dropdown selection changes
+      columnSelector.addEventListener('change', function() {
+        plottedProperty = this.value;
+        updateVisualization(data, plottedProperty);
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        updateVisualization(data, plottedProperty);
+      });
+    })
+    .catch(err => {
+      console.log("Error loading data:", err);
+      document.querySelector('.vizualisation-container').innerHTML = 
+        '<p style="color: red">Error loading data. Please check the console for details.</p>';
+    });
+};
+</script>
+</html>
