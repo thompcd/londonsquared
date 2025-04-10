@@ -16,4 +16,5 @@ Code,Area name,medianHomeValue,area_sqkm,citywide_average,dataYear,dataSource
 74012,Lynn Lane,193658,64,true,2025,Zillow
 74170,Oral Roberts,193658,0,true,2025,Zillow
 74107,Town West,193658,66,true,2025,Zillow
-74106,North Tulsa,193658,7.6,true,2025,Zillow
+74106,North Tulsa,80057,7.6,true,2025,Zillow
+74112,McClure Park,106950,6.8,true,2025,Zillow
