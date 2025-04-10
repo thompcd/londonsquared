@@ -1,7 +1,7 @@
 {
   "name": "tulsasquared",
-  "version": "0.1.0",
-  "description": "Visualise Tulsa neighborhood data in the style of After the Floods London Squared cartograms",
+  "version": "0.2.0",
+  "description": "Visualize Tulsa neighborhood data in the style of After the Floods London Squared cartograms",
   "keywords": [
     "d3-module",
     "cartogram",
@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "d3": "^5.7.0",
-    "tulsasquared": "^0.1.0"
+    "tulsasquared": "^0.2.0"
   },
   "repository": "https://github.com/thompcd/londonsquared",
   "devDependencies": {

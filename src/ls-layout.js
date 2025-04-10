@@ -16,6 +16,6 @@ export default [
 	{"LSAbbreviation":"bxby","x":"4","y":"6","irregular":false,"code":"74008","name":"Bixby"},
 	{"LSAbbreviation":"lynn","x":"5","y":"3","irregular":false,"code":"74012","name":"Lynn Lane"},
 	{"LSAbbreviation":"brkn","x":"5","y":"4","irregular":false,"code":"74014","name":"Broken Arrow"},
-	{"LSAbbreviation":"nrth","x":"3","y":"1","irregular":false,"code":"74106","name":"North Tulsa"},
+	{"LSAbbreviation":"nrth","x":"3","y":"1","irregular":false,"code":"74110","name":"North Tulsa"},
 	{"LSAbbreviation":"mclr","x":"4","y":"2","irregular":false,"code":"74112","name":"McClure Park"}
 ];
