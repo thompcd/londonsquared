@@ -7,7 +7,7 @@ Code,Area name,medianHomeValue,area_sqkm,citywide_average,dataYear,dataSource
 74132,Tulsa Hills,193658,33,true,2025,Zillow
 74037,Jenks,193658,42,true,2025,Zillow
 74108,Eastland,193658,0,true,2025,Zillow
-E09000014,Midtown,261747,0,false,2025,Zillow
+74114,Midtown,261747,0,false,2025,Zillow
 74063,Sand Springs,193658,336,true,2025,Zillow
 74011,Southside,193658,62,true,2025,Zillow
 74152,Utica Square,193658,0,true,2025,Zillow
@@ -16,3 +16,4 @@ E09000014,Midtown,261747,0,false,2025,Zillow
 74012,Lynn Lane,193658,64,true,2025,Zillow
 74170,Oral Roberts,193658,0,true,2025,Zillow
 74107,Town West,193658,66,true,2025,Zillow
+74106,North Tulsa,193658,7.6,true,2025,Zillow
